@@ -1,7 +1,7 @@
 package com.example.lab_week_03
 
 import android.os.Bundle
-import android.view.LayoutInflater
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
@@ -9,36 +9,27 @@ import androidx.fragment.app.Fragment
 
 class DetailFragment : Fragment() {
 
-    private lateinit var title: TextView
-    private lateinit var desc: TextView
+    companion object {
+        fun newInstance(coffeeName: String): DetailFragment {
+            val fragment = DetailFragment()
+            val bundle = Bundle()
+            bundle.putString("coffee", coffeeName)
+            fragment.arguments = bundle
+            return fragment
+        }
+    }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
+        inflater: android.view.LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val view = inflater.inflate(R.layout.fragment_detail, container, false)
 
-        title = view.findViewById(R.id.coffee_title)
-        desc = view.findViewById(R.id.coffee_desc)
+        val textView = TextView(requireContext())
+        textView.textSize = 24f
+        textView.gravity = Gravity.CENTER
+        textView.text = arguments?.getString("coffee") ?: "No Data"
 
-        return view
-    }
-
-    fun setCoffeeData(id: Int) {
-        when (id) {
-            R.id.affogato -> {
-                title.text = getString(R.string.affogato_title)
-                desc.text = getString(R.string.affogato_desc)
-            }
-            R.id.americano -> {
-                title.text = getString(R.string.americano_title)
-                desc.text = getString(R.string.americano_desc)
-            }
-            R.id.latte -> {
-                title.text = getString(R.string.latte_title)
-                desc.text = getString(R.string.latte_desc)
-            }
-        }
+        return textView
     }
 }

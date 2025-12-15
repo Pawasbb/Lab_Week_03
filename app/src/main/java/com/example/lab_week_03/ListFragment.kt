@@ -2,37 +2,45 @@ package com.example.lab_week_03
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.ListView
 import androidx.fragment.app.Fragment
 
-class ListFragment : Fragment(), View.OnClickListener {
+class ListFragment : Fragment() {
 
-    private lateinit var coffeeListener: CoffeeListener
+    private lateinit var listener: CoffeeListener
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        coffeeListener = context as CoffeeListener
+        listener = context as CoffeeListener
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater,
+        inflater: android.view.LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_list, container, false)
-    }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        val listView = ListView(requireContext())
 
-        view.findViewById<View>(R.id.affogato).setOnClickListener(this)
-        view.findViewById<View>(R.id.americano).setOnClickListener(this)
-        view.findViewById<View>(R.id.latte).setOnClickListener(this)
-    }
+        val coffees = arrayOf(
+            "Affogato",
+            "Americano",
+            "Latte"
+        )
 
-    override fun onClick(v: View) {
-        coffeeListener.onSelected(v.id)
+        listView.adapter = ArrayAdapter(
+            requireContext(),
+            android.R.layout.simple_list_item_1,
+            coffees
+        )
+
+        listView.setOnItemClickListener { _, _, position, _ ->
+            listener.onSelected(coffees[position]) // ✅ STRING
+        }
+
+        return listView
     }
 }
