@@ -10,36 +10,36 @@
         android:orientation="vertical">
 
         <TextView
-            android:text="@string/coffee_list"
-            android:textSize="30sp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:text="Coffee List"
+            android:textSize="30sp" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginVertical="20dp"
-            android:background="?android:attr/dividerVertical"/>
+            android:background="?android:attr/dividerVertical" />
 
         <TextView
             android:id="@+id/affogato"
-            android:text="@string/affogato_title"
-            android:padding="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="AFFOGATO" />
 
         <TextView
             android:id="@+id/americano"
-            android:text="@string/americano_title"
-            android:padding="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="AMERICANO" />
 
         <TextView
             android:id="@+id/latte"
-            android:text="@string/latte_title"
-            android:padding="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="CAFFE LATTE" />
     </LinearLayout>
 </ScrollView>

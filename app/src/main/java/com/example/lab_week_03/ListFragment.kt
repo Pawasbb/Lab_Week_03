@@ -1,46 +1,43 @@
 package com.example.lab_week_03
 
-import android.content.Context
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.ListView
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 
 class ListFragment : Fragment() {
 
-    private lateinit var listener: CoffeeListener
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        listener = context as CoffeeListener
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_list, container, false)
     }
 
-    override fun onCreateView(
-        inflater: android.view.LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        val listView = ListView(requireContext())
-
-        val coffees = arrayOf(
-            "Affogato",
-            "Americano",
-            "Latte"
+        val coffeeList = listOf<View>(
+            view.findViewById(R.id.affogato),
+            view.findViewById(R.id.americano),
+            view.findViewById(R.id.latte)
         )
 
-        listView.adapter = ArrayAdapter(
-            requireContext(),
-            android.R.layout.simple_list_item_1,
-            coffees
-        )
-
-        listView.setOnItemClickListener { _, _, position, _ ->
-            listener.onSelected(coffees[position]) // ✅ STRING
+        coffeeList.forEach { coffee ->
+            coffee.setOnClickListener {
+                val bundle = Bundle()
+                bundle.putInt(COFFEE_ID, coffee.id)
+                it.findNavController().navigate(
+                    R.id.coffee_id_action,
+                    bundle
+                )
+            }
         }
+    }
 
-        return listView
+    companion object {
+        const val COFFEE_ID = "COFFEE_ID"
     }
 }
